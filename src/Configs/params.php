@@ -5,5 +5,5 @@ define('DATABASE', 'tutos');        // Nom de la BDD
 define('LOGIN', 'root');            // Login sur la BDD
 define('MOT_DE_PASSE', '');         // Password sur la BDD
 
-define('PATH', 'Cours_dev/31mars/master/');
+define('PATH', 'Cours_dev/API_tutos/');
 ?>
