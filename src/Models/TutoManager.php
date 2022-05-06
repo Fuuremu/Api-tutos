@@ -55,17 +55,18 @@ class TutoManager extends Manager
         return $tutos;
     }
 
-    public function findPage($page){
-         // Connexion à la BDD
-         $dbh = static::connectDb();
+    public function findPage($page)
+    {
+        // Connexion à la BDD
+        $dbh = static::connectDb();
 
-         // Requête
-         $sth = $dbh->prepare('SELECT * FROM tutos');
-         $sth->execute();
- 
-         $tutos = [];
+        // Requête
+        $sth = $dbh->prepare('SELECT * FROM tutos');
+        $sth->execute();
 
-         while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
+        $tutos = [];
+
+        while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
 
             $tuto = new Tuto();
             $tuto->setId($row['id']);
@@ -74,6 +75,7 @@ class TutoManager extends Manager
             $tuto->setCreatedAt($row["createdAt"]);
             $tutos[] = $tuto;
         }
+        $tutosPage = [];
         for ($i=0; $i <= 4; $i++)
         {
             $idPage = ($page - 1)*5+$i;
@@ -118,7 +120,7 @@ class TutoManager extends Manager
 
         // Requête
         $sth = $dbh->prepare('UPDATE tutos SET title=:title, description=:description, createdAt=:createdAt WHERE id=:id');
-        $id= $tuto->getId();
+        $id = $tuto->getId();
         $sth->bindParam(':id', $id);
         $title = $tuto->getTitle();
         $sth->bindParam(':title', $title);
@@ -132,7 +134,8 @@ class TutoManager extends Manager
         return $tuto;
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
 
         // Suppression d'un tuto en BDD
         // Connexion à la BDD
@@ -144,6 +147,6 @@ class TutoManager extends Manager
         $sth->bindParam(':id', $id);
         $sth->execute();
 
-        return "Le tuto n°".$id." a été supprimé";
+        return "Le tuto n°" . $id . " a été supprimé";
     }
 }
